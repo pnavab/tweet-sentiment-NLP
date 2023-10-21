@@ -396,3 +396,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+.ipynb_checkpoints
+sentiment140
+config.json
