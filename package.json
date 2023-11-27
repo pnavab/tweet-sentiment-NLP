@@ -1,5 +1,14 @@
 {
   "dependencies": {
     "create-next-app": "^14.0.3"
-  }
+  },
+  "name": "tweet-sentiment-nlp",
+  "version": "1.0.0",
+  "description": "tweet sentiment analysis project for CS156",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
