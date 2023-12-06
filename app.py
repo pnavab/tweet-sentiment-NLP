@@ -39,6 +39,7 @@ class SentimentResponse(BaseModel):
 
 @app.post("/predict_sentiment", response_model=SentimentResponse)
 def predict_sentiment(request: SentimentRequest):
+    global df # declare df as global so we can use it in this endpoint
     text = request.text
 
     # Vectorize the input text
@@ -46,6 +47,11 @@ def predict_sentiment(request: SentimentRequest):
 
     # Make prediction
     prediction = model.predict(text_vectorized)[0]
+
+    # Append this prediction to the model
+    new_entry = pd.DataFrame({'score': [prediction], 'tweet': [text]})
+    df = pd.concat([df, new_entry], ignore_index=True)
+    df.to_csv('./sentiment140/training.1600000.processed.noemoticon.csv', index=False)
 
     return {"prediction": prediction}
 
