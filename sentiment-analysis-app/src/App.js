@@ -44,7 +44,7 @@ const App = () => {
         onChange={(e) => setInputText(e.target.value)}
         onKeyDown= {(e) => submit(e)}
         placeholder="Enter text for sentiment analysis"
-        style={{ width: '80%', padding: '8px', marginBottom: '10px' }}
+        style={{resize: 'none', width: '60%', padding: '8px', marginBottom: '10px'}}
       />
       <hr style={{border: "none"}}></hr>
       <button onKeyDown={e => e.key === 'Enter' ? analyzeSentiment: ''} 
