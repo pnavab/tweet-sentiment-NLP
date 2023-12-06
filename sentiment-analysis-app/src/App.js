@@ -28,6 +28,12 @@ const App = () => {
     }
   };
 
+  async function submit(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      analyzeSentiment(inputText);
+    }
+  }
 
 
   return (
@@ -36,11 +42,14 @@ const App = () => {
       <textarea
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
+        onKeyDown= {(e) => submit(e)}
         placeholder="Enter text for sentiment analysis"
         style={{ width: '80%', padding: '8px', marginBottom: '10px' }}
       />
       <hr style={{border: "none"}}></hr>
-      <button onClick={analyzeSentiment} style={{color: color, width: "200px", height: "50px", border: "none", borderRadius: "100px", padding: '8px', cursor: 'pointer' }}>
+      <button onKeyDown={e => e.key === 'Enter' ? analyzeSentiment: ''} 
+        onClick={analyzeSentiment} 
+        style={{color: color, width: "200px", height: "50px", border: "none", borderRadius: "100px", padding: '8px', cursor: 'pointer' }}>
         <b>Analyze Sentiment</b>
       </button>
       {sentiment !== null && (
