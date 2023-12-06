@@ -28,7 +28,7 @@ vectorizer = CountVectorizer()
 
 # Assuming df is your DataFrame from which you trained the model
 X_train_vectorized = vectorizer.fit_transform(df['tweet'])
-y_train = df['score']
+y_train = df['score'].astype(str)
 model.fit(X_train_vectorized, y_train)
 
 class SentimentRequest(BaseModel):
