@@ -1,12 +1,13 @@
 // App.js
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "./App.css";
 
 const App = () => {
   const [inputText, setInputText] = useState('');
   const [sentiment, setSentiment] = useState(null);
-  const [color, setColor] = useState("grey")
+  const [color, setColor] = useState("grey");
+  const [last5Entries, setLast5Entries] = useState();
 
   const analyzeSentiment = async () => {
     try {
@@ -35,6 +36,19 @@ const App = () => {
     }
   }
 
+  useEffect(() => {
+    async function getLast5Entries() {
+      try {
+        const response = await fetch('http://localhost:8000/get_last_5');
+        const data = await response.json();
+        setLast5Entries(data);
+      } catch (error) {
+        console.error('Error fetching last 5 entries:', error);
+      }
+    }
+
+    getLast5Entries();
+  }, [])
 
   return (
     <div style={{ textAlign: 'center', marginTop: '20vh', color: color}}>
@@ -55,6 +69,18 @@ const App = () => {
       {sentiment !== null && (
         <div style={{ marginTop: '10px' }}>
           <p>Sentiment: {sentiment}</p>
+        </div>
+      )}
+      {last5Entries && (
+        <div style={{ marginTop: '20px' }}>
+          <h2>Last 5 Entries</h2>
+          <ul>
+            {last5Entries.map((entry, index) => (
+              <li key={index}>
+                <p>Score: {entry.score}, Tweet: {entry.tweet}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>

@@ -55,5 +55,13 @@ def predict_sentiment(request: SentimentRequest):
 
     return {"prediction": prediction}
 
+@app.get("/get_last_5")
+def get_last_5():
+    global df
+
+    last_5_entries = df.tail(5)
+    last_5_entries_trimmed = last_5_entries[['score', 'tweet']].to_dict(orient='records')
+    return last_5_entries_trimmed
+
 if __name__ == "__main__":
     uvicorn.run("app:app", port=8000, reload=True)
